@@ -1,0 +1,29 @@
+version: "3"
+
+# REST API setup
+server:
+  command: "php psr-worker.php"
+
+http:
+  address: 0.0.0.0:8080
+  pool:
+    num_workers: 1
+
+# Background ticker
+service:
+  tick:
+    command: "php tick.php"
+
+# In mem key-value storage
+rpc:
+  listen: tcp://127.0.0.1:6001
+
+kv:
+  local:
+    driver: memory
+    config: { }
+
+# do not use development mode in production
+# logs:
+#   level: debug
+#   mode: development
